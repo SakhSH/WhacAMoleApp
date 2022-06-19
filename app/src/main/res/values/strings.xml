@@ -10,4 +10,6 @@
     <string name="mole_hits">Hits:</string>
     <string name="timer_default">00:00</string>
     <string name="ib_mole">image button mole</string>
+    <string name="record_text">Hit record: %s</string>
+    <string name="hits_text">Hits: %d</string>
 </resources>

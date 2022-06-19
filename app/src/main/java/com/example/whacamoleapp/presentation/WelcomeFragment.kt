@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.fragment.findNavController
 import com.example.whacamoleapp.R
 import com.example.whacamoleapp.databinding.FragmentWelcomeBinding
+import com.example.whacamoleapp.domain.entity.Mole
 
 class WelcomeFragment : Fragment() {
 
@@ -33,7 +35,7 @@ class WelcomeFragment : Fragment() {
         binding.buttonStart.setOnClickListener {
             launchGameFragment()
         }
-        binding.tvRecordGame.text = RECORD_TEXT + record
+        binding.tvRecordGame.text = requireContext().getString(R.string.record_text, record)
     }
 
     private fun launchGameFragment() {
@@ -46,7 +48,6 @@ class WelcomeFragment : Fragment() {
     }
 
     companion object{
-        private const val RECORD_TEXT = "Hit record: "
         private const val DEFAULT_VALUE_PREF = "empty"
         private const val SP_KEY = "record"
     }

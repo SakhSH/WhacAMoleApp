@@ -12,12 +12,14 @@ import kotlin.random.nextInt
 
 class GameViewModel : ViewModel() {
 
-
     private val listMoles: MutableList<Mole> by lazy { mutableListOf() }
-    lateinit var gameResult: GameResult
     private var timer: CountDownTimer? = null
     private var timerMoleState: CountDownTimer? = null
-    var countHitsMole = 0
+    private var countHitsMole = 0
+
+    private var _gameResult = MutableLiveData<GameResult>()
+    val gameResult: LiveData<GameResult>
+        get() = _gameResult
 
     private var _formattedTime = MutableLiveData<String>()
     val formattedTime: LiveData<String>
@@ -92,8 +94,7 @@ class GameViewModel : ViewModel() {
     private fun checkResult(): Boolean = countHitsMole >= 10
 
     private fun finishGame() {
-        gameResult = GameResult(
-            GAME_RESULT_ID,
+        _gameResult.value = GameResult(
             checkResult(),
             countHitsMole
         )
@@ -125,7 +126,6 @@ class GameViewModel : ViewModel() {
     }
 
     companion object {
-        private const val GAME_RESULT_ID = 1
         private const val MILLIS_IN_SECONDS = 1000L
         private const val SECONDS_IN_MINUTES = 60
     }

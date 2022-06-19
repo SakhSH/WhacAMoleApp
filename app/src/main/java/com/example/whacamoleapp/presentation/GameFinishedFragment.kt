@@ -17,7 +17,7 @@ class GameFinishedFragment : Fragment() {
 
     private var _binding: FragmentGameFinishedBinding? = null
     private val binding: FragmentGameFinishedBinding
-        get() = _binding ?: throw RuntimeException("FragmentWelcomeBinding == null")
+        get() = _binding ?: throw RuntimeException("FragmentGameFinishedBinding == null")
 
     private val args by navArgs<GameFinishedFragmentArgs>()
 
@@ -31,6 +31,8 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val pref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val record = pref.getString(SP_KEY, DEFAULT_VALUE_PREF)
         with(binding) {
             if (args.gameResult.winner) {
                 tvResult.text = RESULT_VICTORY
@@ -39,7 +41,9 @@ class GameFinishedFragment : Fragment() {
                 tvResult.text = RESULT_FAILED
                 ivLogo.setImageResource(R.drawable.ic_sad)
             }
-            tvResultHits.text = RESULT_HITS + args.gameResult.countOfHits.toString()
+            tvResultHits.text =
+                requireContext().getString(R.string.hits_text, args.gameResult.countOfHits)
+            binding.tvRecordGame.text = requireContext().getString(R.string.record_text, record)
             buttonAgain.setOnClickListener { launchWelcomeFragment() }
         }
     }
@@ -54,7 +58,8 @@ class GameFinishedFragment : Fragment() {
     }
 
     companion object {
-        private const val RESULT_HITS = "Hits: "
+        private const val DEFAULT_VALUE_PREF = "empty"
+        private const val SP_KEY = "record"
         private const val RESULT_VICTORY = "VICTORY"
         private const val RESULT_FAILED = "FAILED"
     }

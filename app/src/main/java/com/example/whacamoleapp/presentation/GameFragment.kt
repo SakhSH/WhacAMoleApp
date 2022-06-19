@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.whacamoleapp.R
 import com.example.whacamoleapp.databinding.FragmentGameBinding
+import com.example.whacamoleapp.domain.entity.GameResult
 import com.example.whacamoleapp.domain.entity.Mole
 
 
 class GameFragment : Fragment() {
 
+    private val listButton: MutableList<ImageButton> by lazy { mutableListOf() }
 
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
@@ -33,6 +38,16 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         gameViewModel.randomEnabledMole()
+
+        listButton.add(binding.ibMole1)
+        listButton.add(binding.ibMole2)
+        listButton.add(binding.ibMole3)
+        listButton.add(binding.ibMole4)
+        listButton.add(binding.ibMole5)
+        listButton.add(binding.ibMole6)
+        listButton.add(binding.ibMole7)
+        listButton.add(binding.ibMole8)
+        listButton.add(binding.ibMole9)
     }
 
     private fun observeViewModel() {
@@ -41,75 +56,45 @@ class GameFragment : Fragment() {
                 binding.tvTimer.text = it
             }
             countOfHitsMole.observe(viewLifecycleOwner) {
-                binding.tvCountOfHits.text = HITS_TEXT + it
+                binding.tvCountOfHits.text = requireContext().getString(R.string.hits_text, it)
             }
             moleList.observe(viewLifecycleOwner) {
                 moleState(it)
             }
-            isFinish.observe(viewLifecycleOwner) {
-                if (it) {
-                    launchGameFinishedFragment()
+            isFinish.observe(viewLifecycleOwner) { isFinish ->
+                if (isFinish) {
+                    gameResult.observe(viewLifecycleOwner) { gameResult ->
+                        launchGameFinishedFragment(gameResult)
+                    }
                 }
             }
         }
     }
 
     private fun moleState(list: List<Mole>) {
-        with(binding) {
-            ibMole1.isEnabled = list[0].IsActive
-            ibMole2.isEnabled = list[1].IsActive
-            ibMole3.isEnabled = list[2].IsActive
-            ibMole4.isEnabled = list[3].IsActive
-            ibMole5.isEnabled = list[4].IsActive
-            ibMole6.isEnabled = list[5].IsActive
-            ibMole7.isEnabled = list[6].IsActive
-            ibMole8.isEnabled = list[7].IsActive
-            ibMole9.isEnabled = list[8].IsActive
 
-            ibMole1.setOnClickListener {
-                gameViewModel.hittingTheMole(list[0])
-            }
-            ibMole2.setOnClickListener {
-                gameViewModel.hittingTheMole(list[1])
-            }
-            ibMole3.setOnClickListener {
-                gameViewModel.hittingTheMole(list[2])
-            }
-            ibMole4.setOnClickListener {
-                gameViewModel.hittingTheMole(list[3])
-            }
-            ibMole5.setOnClickListener {
-                gameViewModel.hittingTheMole(list[4])
-            }
-            ibMole6.setOnClickListener {
-                gameViewModel.hittingTheMole(list[5])
-            }
-            ibMole7.setOnClickListener {
-                gameViewModel.hittingTheMole(list[6])
-            }
-            ibMole8.setOnClickListener {
-                gameViewModel.hittingTheMole(list[7])
-            }
-            ibMole9.setOnClickListener {
-                gameViewModel.hittingTheMole(list[8])
+        listButton.forEachIndexed { index, imageButton ->
+            imageButton.isEnabled = list[index].IsActive
+            imageButton.setOnClickListener {
+                gameViewModel.hittingTheMole(list[index])
             }
         }
     }
 
-    private fun launchGameFinishedFragment() {
+    private fun launchGameFinishedFragment(gameResult: GameResult) {
         val pref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val edt = pref.edit()
         val record = pref.getString(SP_KEY, DEFAULT_VALUE_PREF)
         if (record != null) {
-            if (record.toInt() < gameViewModel.gameResult.countOfHits) {
-                edt.putString(SP_KEY, gameViewModel.gameResult.countOfHits.toString())
+            if (record.toInt() < gameResult.countOfHits) {
+                edt.putString(SP_KEY, gameResult.countOfHits.toString())
                 edt.apply()
             }
         }
 
         findNavController().navigate(
             GameFragmentDirections.actionGameFragmentToGameFinishedFragment(
-                gameViewModel.gameResult
+                gameResult
             )
         )
     }
@@ -122,6 +107,5 @@ class GameFragment : Fragment() {
     companion object {
         private const val DEFAULT_VALUE_PREF = "empty"
         private const val SP_KEY = "record"
-        private const val HITS_TEXT = "Hits: "
     }
 }
