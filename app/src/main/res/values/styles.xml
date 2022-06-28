@@ -6,6 +6,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/xl_text_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/open_sans_semi_condensed_italic</item>
     </style>
 
     <style name="button_text">
@@ -13,6 +14,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/l_text_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/open_sans_semi_condensed_italic</item>
     </style>
 
     <style name="description_text">
