@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_grass"
     tools:context=".presentation.WelcomeFragment">
 
     <ImageView
@@ -20,6 +21,7 @@
 
     <TextView
         android:id="@+id/tv_title"
+        style="@style/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/l_margin"
@@ -27,7 +29,6 @@
         android:layout_marginEnd="@dimen/l_margin"
         android:gravity="center"
         android:text="@string/welcome_title"
-        android:textSize="@dimen/xl_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_logo" />
@@ -35,20 +36,22 @@
 
     <TextView
         android:id="@+id/tv_game_rules"
+        style="@style/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/l_margin"
-        android:layout_marginTop="@dimen/xl_margin"
+        android:layout_marginTop="@dimen/l_margin"
         android:layout_marginEnd="@dimen/l_margin"
         android:gravity="center"
         android:text="@string/game_rules"
-        android:textSize="@dimen/l_text_size"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
     <TextView
         android:id="@+id/tv_record_game"
+        style="@style/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/l_margin"
@@ -56,13 +59,13 @@
         android:layout_marginEnd="@dimen/l_margin"
         android:gravity="center"
         android:text="@string/record_game"
-        android:textSize="@dimen/xl_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_game_rules" />
 
     <Button
         android:id="@+id/button_start"
+        style="@style/button_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

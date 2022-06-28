@@ -47,8 +47,8 @@ class WelcomeFragment : Fragment() {
         _binding = null
     }
 
-    companion object{
-        private const val DEFAULT_VALUE_PREF = "empty"
+    companion object {
+        private const val DEFAULT_VALUE_PREF = "0"
         private const val SP_KEY = "record"
     }
 }

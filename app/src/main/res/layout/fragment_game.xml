@@ -9,23 +9,23 @@
 
     <TextView
         android:id="@+id/tv_timer"
+        style="@style/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/l_margin"
         android:layout_marginTop="@dimen/xxl_margin"
         android:text="@string/timer_default"
-        android:textSize="@dimen/xl_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_countOfHits"
+        style="@style/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/l_margin"
         android:text="@string/mole_hits"
-        android:textSize="@dimen/xl_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_timer" />

@@ -85,12 +85,14 @@ class GameFragment : Fragment() {
         val pref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val edt = pref.edit()
         val record = pref.getString(SP_KEY, DEFAULT_VALUE_PREF)
+
         if (record != null) {
-            if (record.toInt() < gameResult.countOfHits) {
-                edt.putString(SP_KEY, gameResult.countOfHits.toString())
-                edt.apply()
-            }
+                if (record.toInt() < gameResult.countOfHits) {
+                    edt.putString(SP_KEY, gameResult.countOfHits.toString())
+                    edt.apply()
+                }
         }
+
 
         findNavController().navigate(
             GameFragmentDirections.actionGameFragmentToGameFinishedFragment(
@@ -105,7 +107,7 @@ class GameFragment : Fragment() {
     }
 
     companion object {
-        private const val DEFAULT_VALUE_PREF = "empty"
+        private const val DEFAULT_VALUE_PREF = "0"
         private const val SP_KEY = "record"
     }
 }

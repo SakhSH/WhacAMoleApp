@@ -58,7 +58,7 @@ class GameFinishedFragment : Fragment() {
     }
 
     companion object {
-        private const val DEFAULT_VALUE_PREF = "empty"
+        private const val DEFAULT_VALUE_PREF = "0"
         private const val SP_KEY = "record"
         private const val RESULT_VICTORY = "VICTORY"
         private const val RESULT_FAILED = "FAILED"
